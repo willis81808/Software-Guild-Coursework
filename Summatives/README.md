@@ -8,12 +8,12 @@ Similarly to your classwork, try and keep them organized my Milestone - it'll he
 - [ ] m2-summative
 - [ ] m3-summative
 - [ ] m4-summative
-- [ ] oop-mastery
+- [ ] mastery-oop
 - [ ] m6-summative
 - [ ] m7-summative
 - [ ] m8-summative
 - [ ] m9-summative
-- [ ] ddwa-mastery
+- [ ] mastery-ddwa
 
 ## Summative Work Flow using Branches & Pull Requests
 1. #### Checkout Summative Branch _<details><summary>Expand for visual how-to example...</summary><img src="../.github/imgs/assignment-branch.gif" alt="Checkout Summative Branch"/></details>_
