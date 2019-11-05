@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyTeenager", "LazyTeenager\LazyTeenager.csproj", "{1FD4CC5B-A523-43BA-B7AD-F46CBA47DB74}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FD4CC5B-A523-43BA-B7AD-F46CBA47DB74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD4CC5B-A523-43BA-B7AD-F46CBA47DB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD4CC5B-A523-43BA-B7AD-F46CBA47DB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD4CC5B-A523-43BA-B7AD-F46CBA47DB74}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38C23155-CE1F-45A3-A8A4-6B99E9A3ABFE}
+	EndGlobalSection
+EndGlobal
