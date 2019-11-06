@@ -19,15 +19,18 @@ namespace FruitSalad
             var berries = from string item in fruits
                           where ContainsIgnoreCase(item, "berry")
                           select item;
-            var apples = from string item in fruits
-                         where ContainsIgnoreCase(item, "apple") && item != "Pineapple"
-                         select item;
+
+            var apples  = from string item in fruits
+                          where ContainsIgnoreCase(item, "apple") && item != "Pineapple"
+                          select item;
+
             var oranges = from string item in fruits
                           where ContainsIgnoreCase(item, "orange")
                           select item;
-            var misc = from string item in fruits
-                       where !berries.Contains(item) && !apples.Contains(item) && !oranges.Contains(item) && !ContainsIgnoreCase(item, "tomato")
-                       select item;
+
+            var misc    = from string item in fruits
+                          where !berries.Contains(item) && !apples.Contains(item) && !oranges.Contains(item) && !ContainsIgnoreCase(item, "tomato")
+                          select item;
 
             ////////////////////////////////////////////////////////////////
             // The following code selects up to three (3) random apples,  //
