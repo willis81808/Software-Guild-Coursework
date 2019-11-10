@@ -61,7 +61,6 @@ namespace RockPaperScissors
             }
 
             // display results
-            //Console.WriteLine("Good game... The final scores are:");
             Console.WriteLine($"{ ((score.ties > score.player && score.ties > score.computer) || score.player == score.computer ? "Nobody is" : (score.player > score.computer ? "You are" : "The computer is")) } the overall winner!");
             Console.WriteLine($"{"Player:",10} {score.player}");
             Console.WriteLine($"{"Computer:",10} {score.computer}");
@@ -113,20 +112,6 @@ namespace RockPaperScissors
 
             return result;
         }
-
-        private static int GetNumber(string prompt)
-        {
-            int result;
-
-            Console.Write(prompt);
-            while (!int.TryParse(Console.ReadLine(), out result))
-            {
-                Console.WriteLine("You entered an invalid number!");
-                Console.Write(prompt);
-            }
-
-            return result;
-        }
     }
 
     struct Score
@@ -142,20 +127,6 @@ namespace RockPaperScissors
             this.player = player;
             this.computer = computer;
             this.ties = ties;
-        }
-
-        public Score Add(int p, int c, int t)
-        {
-            player += p;
-            computer += c;
-            ties += t;
-
-            return this;
-        }
-        
-        public static Score operator +(Score @this, Score other)
-        {
-            return @this.Add(other.player, other.computer, other.ties);
         }
     }
 }
