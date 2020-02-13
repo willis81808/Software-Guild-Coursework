@@ -46,13 +46,11 @@ namespace FlooringMastery.Views
             Product product = null;
             do
             {
-                int count = 1;
-                foreach (var p in repository.Products)
+                for (int i = 0; i < repository.Products.Length; i++)
                 {
-                    Console.WriteLine($"{count})");
-                    ConsoleIO.DisplayProductDetails(p);
+                    Console.WriteLine($"{i+1})");
+                    ConsoleIO.DisplayProductDetails(repository.Products[i]);
                     Console.WriteLine();
-                    count++;
                 }
                 int selection = ConsoleIO.GetInteger("Enter a product by number:") - 1;
                 if (selection < repository.Products.Length && selection >= 0)
@@ -78,7 +76,7 @@ namespace FlooringMastery.Views
             Console.Clear();
             Order order = new Order(name, state, product, area);
             ConsoleIO.DisplayOrderDetails(order);
-            if (ConsoleIO.GetBool("Would you like to save this order?", "Y", "N"))
+            if (ConsoleIO.GetBool("Would you like to save this order?", "Y", "N", false))
             {
                 repository.AddOrder(date, order);
             }
