@@ -43,17 +43,25 @@ namespace FlooringMastery.BLL
 
         public Response UpdateOrder(Order newOrder, DateTime date, int orderNumber)
         {
+            var response = RemoveOrder(date, orderNumber);
+            
+            if (response.Success)
+            {
+                newOrder.OrderNumber = orderNumber;
+                orderRepository.SaveOrder(date, newOrder);
+            }
+
+            return response;
+        }
+        public Response RemoveOrder(DateTime date, int orderNumber)
+        {
             var response = new Response();
 
             response.Success = orderRepository.RemoveOrder(date, orderNumber);
 
-            if (response.Success)
+            if (!response.Success)
             {
-                orderRepository.SaveOrder(date, newOrder);
-            }
-            else
-            {
-                response.Message = $"Error: No order number {orderNumber} found on {date.ToShortDateString()}";
+                response.Message = $"No orders were found on {date.ToShortDateString()} matching order number {orderNumber}";
             }
 
             return response;
@@ -63,7 +71,7 @@ namespace FlooringMastery.BLL
         {
             if (Orders.ContainsKey(date))
             {
-                order.OrderNumber = Orders[date].Count + 1;
+                order.OrderNumber = Orders[date][Orders[date].Count - 1].OrderNumber + 1;
             }
             else
             {

@@ -17,7 +17,7 @@ namespace FlooringMastery.Views
             Console.Clear();
 
             // date
-            DateTime date = ConsoleIO.GetDateTime("Order date:");
+            DateTime date = ConsoleIO.GetDateTime("Order date (must be a future date):", false);
             Console.WriteLine();
 
             // customer name

@@ -31,13 +31,14 @@ namespace FlooringMastery.Data
                         LaborCostPerSquareFoot = 4.75m,
                         MaterialCost = 515m,
                         LaborCost = 475m,
-                        Tax = 64.88m,
+                        Tax = 61.88m,
                         Total = 1051.88m
                     }
                 }}
             };
             products = new List<Product>()
             {
+                new Product("Wood", 5.15m, 4.75m),
                 new Product("Marble", 8.10m, 7.25m),
                 new Product("Tatami", 32.4m, 4m)
             };
@@ -83,6 +84,10 @@ namespace FlooringMastery.Data
             if (orders.ContainsKey(date))
             {
                 int removed = orders[date].RemoveAll(o => o.OrderNumber == orderNumber);
+                if (orders[date].Count == 0)
+                {
+                    orders.Remove(date);
+                }
                 return removed > 0;
             }
             else

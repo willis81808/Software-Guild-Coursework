@@ -17,12 +17,12 @@ namespace FlooringMastery
             Console.WriteLine($"{"TaxRate:",25} {order.TaxRate}%");
             Console.WriteLine($"{"ProductType:",25} {order.ProductType}");
             Console.WriteLine($"{"Area:",25} {order.Area} ft^2");
-            Console.WriteLine($"{"CostPerSquareFoot:",25} ${order.CostPerSquareFoot}");
-            Console.WriteLine($"{"LaborCostPerSquareFoot:",25} ${order.LaborCostPerSquareFoot}");
-            Console.WriteLine($"{"MaterialCost:",25} ${order.MaterialCost}");
-            Console.WriteLine($"{"LaborCost:",25} ${order.LaborCost}");
-            Console.WriteLine($"{"Tax:",25} ${order.Tax}");
-            Console.WriteLine($"{"Total:",25} ${order.Total}");
+            Console.WriteLine($"{"CostPerSquareFoot:",25} ${order.CostPerSquareFoot:0.##}");
+            Console.WriteLine($"{"LaborCostPerSquareFoot:",25} ${order.LaborCostPerSquareFoot:0.##}");
+            Console.WriteLine($"{"MaterialCost:",25} ${order.MaterialCost:0.##}");
+            Console.WriteLine($"{"LaborCost:",25} ${order.LaborCost:0.##}");
+            Console.WriteLine($"{"Tax:",25} ${order.Tax:0.##}");
+            Console.WriteLine($"{"Total:",25} ${order.Total:0.##}");
         }
         public static void DisplayProductDetails(Product product)
         {
@@ -35,16 +35,20 @@ namespace FlooringMastery
             throw new NotImplementedException();
         }
 
-        public static DateTime GetDateTime(string message)
+        public static DateTime GetDateTime(string message, bool pastAllowed = true)
         {
             DateTime result;
 
             do
             {
-                Console.WriteLine(message);
-                Console.Write("> ");
+                do
+                {
+                    Console.WriteLine(message);
+                    Console.Write("> ");
+                }
+                while (!DateTime.TryParse(Console.ReadLine(), out result));
             }
-            while (!DateTime.TryParse(Console.ReadLine(), out result));
+            while (!pastAllowed && DateTime.Now > result);
 
             return result;
         }
