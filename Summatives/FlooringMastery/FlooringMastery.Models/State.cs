@@ -12,6 +12,10 @@ namespace FlooringMastery.Models
         public string StateName;
         public decimal TaxRate;
 
+        public State()
+        {
+            // do nothing
+        }
         public State(string abbreviation, string name, decimal taxRate)
         {
             StateAbbreviation = abbreviation;

@@ -12,6 +12,10 @@ namespace FlooringMastery.Models
         public decimal CostPerSquareFoot;
         public decimal LaborCostPerSquareFoot;
 
+        public Product()
+        {
+            // do nothing
+        }
         public Product(string type, decimal squareFootCost, decimal squareFootLaborCost)
         {
             ProductType = type;

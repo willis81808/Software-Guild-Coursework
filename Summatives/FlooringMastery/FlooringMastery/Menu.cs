@@ -1,4 +1,5 @@
-﻿using FlooringMastery.Views;
+﻿using FlooringMastery.BLL;
+using FlooringMastery.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace FlooringMastery
             while (true)
             {
                 Console.Clear();
+                var s = DataManagerFactory.Create().Orders;
                 Console.WriteLine("Flooring Program");
                 Console.WriteLine();
                 Console.WriteLine("1. Display Orders");
