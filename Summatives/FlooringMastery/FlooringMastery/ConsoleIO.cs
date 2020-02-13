@@ -11,24 +11,24 @@ namespace FlooringMastery
     {
         public static void DisplayOrderDetails(Order order)
         {
-            Console.WriteLine($"Order Number: {order.OrderNumber}");
-            Console.WriteLine($"CustomerName: {order.CustomerName}");
-            Console.WriteLine($"State: {order.State}");
-            Console.WriteLine($"TaxRate: {order.TaxRate}");
-            Console.WriteLine($"ProductType: {order.ProductType}");
-            Console.WriteLine($"Area: {order.Area}");
-            Console.WriteLine($"CostPerSquareFoot: {order.CostPerSquareFoot}");
-            Console.WriteLine($"LaborCostPerSquareFoot: {order.LaborCostPerSquareFoot}");
-            Console.WriteLine($"MaterialCost: {order.MaterialCost}");
-            Console.WriteLine($"LaborCost: {order.LaborCost}");
-            Console.WriteLine($"Tax: {order.Tax}");
-            Console.WriteLine($"Total: {order.Total}");
+            Console.WriteLine($"{"Order Number:",25} {order.OrderNumber}");
+            Console.WriteLine($"{"CustomerName:",25} {order.CustomerName}");
+            Console.WriteLine($"{"State:",25} {order.State}");
+            Console.WriteLine($"{"TaxRate:",25} {order.TaxRate}%");
+            Console.WriteLine($"{"ProductType:",25} {order.ProductType}");
+            Console.WriteLine($"{"Area:",25} {order.Area} ft^2");
+            Console.WriteLine($"{"CostPerSquareFoot:",25} ${order.CostPerSquareFoot}");
+            Console.WriteLine($"{"LaborCostPerSquareFoot:",25} ${order.LaborCostPerSquareFoot}");
+            Console.WriteLine($"{"MaterialCost:",25} ${order.MaterialCost}");
+            Console.WriteLine($"{"LaborCost:",25} ${order.LaborCost}");
+            Console.WriteLine($"{"Tax:",25} ${order.Tax}");
+            Console.WriteLine($"{"Total:",25} ${order.Total}");
         }
         public static void DisplayProductDetails(Product product)
         {
-            Console.WriteLine($"ProductType: {product.ProductType}");
-            Console.WriteLine($"CostPerSquareFoot: {product.CostPerSquareFoot}");
-            Console.WriteLine($"LaborCostPerSquareFoot: {product.LaborCostPerSquareFoot}");
+            Console.WriteLine($"{"ProductType:",-23} {product.ProductType}");
+            Console.WriteLine($"{"CostPerSquareFoot:",-23} {product.CostPerSquareFoot}");
+            Console.WriteLine($"{"LaborCostPerSquareFoot:",-23} {product.LaborCostPerSquareFoot}");
         }
         public static void DisplayTaxDetails(State state)
         {
@@ -77,7 +77,7 @@ namespace FlooringMastery
             return result;
         }
 
-        public static bool GetBool(string message, string trueReply, string falseReply)
+        public static bool GetBool(string message, string trueReply, string falseReply, bool caseSensitive = true)
         {
             bool? result = null;
             do
@@ -85,11 +85,11 @@ namespace FlooringMastery
                 Console.WriteLine(message);
                 Console.Write($"({trueReply}/{falseReply})> ");
                 string input = Console.ReadLine();
-                if (input == falseReply)
+                if (input == falseReply || (!caseSensitive && input.Equals(falseReply, StringComparison.OrdinalIgnoreCase)))
                 {
                     result = false;
                 }
-                else if (input == trueReply)
+                else if (input == trueReply || (!caseSensitive && input.Equals(trueReply, StringComparison.OrdinalIgnoreCase)))
                 {
                     result = true;
                 }
