@@ -9,23 +9,26 @@ namespace FlooringMastery.Views
 {
     class DisplayOrdersView : IView
     {
+        private static readonly string DIVIDER = "--------------------------------------------------";
+
         public void Execute()
         {
             DataManager repository = DataManagerFactory.Create();
 
             Console.WriteLine();
+            Console.WriteLine(DIVIDER);
             foreach (var key in repository.Orders.Keys)
             {
-                Console.WriteLine("-----------------------------------------");
-                Console.WriteLine("%20s", key.ToShortDateString());
+                string dateString = key.ToShortDateString();
+                Console.WriteLine($"{{0, {(DIVIDER.Length / 2) + (dateString.Length / 2)}}}", dateString);
 
                 var collection = repository.Orders[key];
                 foreach (var order in collection)
                 {
-                    Console.WriteLine("-----------------------------------------");
+                    Console.WriteLine(DIVIDER);
                     ConsoleIO.DisplayOrderDetails(order);
                 }
-                Console.WriteLine("-----------------------------------------");
+                Console.WriteLine(DIVIDER);
             }
 
             Console.Write("Press any key to continue...");
