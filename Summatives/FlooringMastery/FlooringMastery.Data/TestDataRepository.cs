@@ -67,33 +67,29 @@ namespace FlooringMastery.Data
 
         public Order LoadOrder(DateTime date, int orderNumber)
         {
-            if (orders.ContainsKey(date))
-            {
-                return (from o in orders[date]
-                        where o.OrderNumber == orderNumber
-                        select o).FirstOrDefault();
-            }
-            else
+            if (!orders.ContainsKey(date))
             {
                 return null;
             }
+
+            return (from o in orders[date]
+                    where o.OrderNumber == orderNumber
+                    select o).FirstOrDefault();
         }
 
         public bool RemoveOrder(DateTime date, int orderNumber)
         {
-            if (orders.ContainsKey(date))
-            {
-                int removed = orders[date].RemoveAll(o => o.OrderNumber == orderNumber);
-                if (orders[date].Count == 0)
-                {
-                    orders.Remove(date);
-                }
-                return removed > 0;
-            }
-            else
+            if (!orders.ContainsKey(date))
             {
                 return false;
             }
+
+            int removed = orders[date].RemoveAll(o => o.OrderNumber == orderNumber);
+            if (orders[date].Count == 0)
+            {
+                orders.Remove(date);
+            }
+            return removed > 0;
         }
 
         public void SaveOrder(DateTime date, Order order)

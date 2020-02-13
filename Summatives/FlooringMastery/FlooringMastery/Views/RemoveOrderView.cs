@@ -18,29 +18,28 @@ namespace FlooringMastery.Views
             Console.Clear();
             DateTime targetDate = ConsoleIO.GetDateTime("Enter the date of the order you'd like to remove:");
 
-            if (repository.Orders.ContainsKey(targetDate))
+            if (!repository.Orders.ContainsKey(targetDate))
             {
-                int orderNumber = ConsoleIO.GetInteger("Enter the order number of the order to remove:");
-                OrderLookupResponse result = repository.LookupOrder(targetDate, orderNumber);
-                if (result.Success)
+                Console.WriteLine($"No orders were found on {targetDate.ToShortDateString()}");
+                Console.Write("Press any key to return to main menu...");
+                Console.ReadKey();
+                return;
+            }
+
+            int orderNumber = ConsoleIO.GetInteger("Enter the order number of the order to remove:");
+            OrderLookupResponse result = repository.LookupOrder(targetDate, orderNumber);
+            if (result.Success)
+            {
+                Console.WriteLine();
+                ConsoleIO.DisplayOrderDetails(result.Order);
+                if (ConsoleIO.GetBool("Would you like to delete this order?", "Y", "N", false))
                 {
-                    Console.WriteLine();
-                    ConsoleIO.DisplayOrderDetails(result.Order);
-                    if (ConsoleIO.GetBool("Would you like to delete this order?", "Y", "N", false))
-                    {
-                        repository.RemoveOrder(targetDate, orderNumber);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(result.Message);
-                    Console.Write("Press any key to return to main menu...");
-                    Console.ReadKey();
+                    repository.RemoveOrder(targetDate, orderNumber);
                 }
             }
             else
             {
-                Console.WriteLine($"No orders were found on {targetDate.ToShortDateString()}");
+                Console.WriteLine(result.Message);
                 Console.Write("Press any key to return to main menu...");
                 Console.ReadKey();
             }
