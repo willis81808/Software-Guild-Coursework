@@ -118,36 +118,36 @@ namespace FlooringMastery.Data
 
         public Order LoadOrder(DateTime date, int orderNumber)
         {
-            if (orders.ContainsKey(date))
-            {
-                return (from o in orders[date]
-                        where o.OrderNumber == orderNumber
-                        select o).FirstOrDefault();
-            }
-            else
+            if (!orders.ContainsKey(date))
             {
                 return null;
             }
+
+            return (from o in orders[date]
+                    where o.OrderNumber == orderNumber
+                    select o).FirstOrDefault();
         }
 
         public bool RemoveOrder(DateTime date, int orderNumber)
         {
             string path = Path.Combine(Directory.GetCurrentDirectory(), $"Data\\Orders\\Orders_{date.ToString("MM/dd/yyyy").Replace("/", "")}.txt");
-            if (File.Exists(path))
-            {
-                List<Order> data = orders[date];
-                data.RemoveAll(o => o.OrderNumber == orderNumber);
-                File.Delete(path);
-                foreach (var order in data)
-                {
-                    SaveOrder(date, order);
-                }
-                return true;
-            }
-            else
+            if (!File.Exists(path))
             {
                 return false;
             }
+            if (!orders[date].Any(o => o.OrderNumber == orderNumber))
+            {
+                return false;
+            }
+
+            List<Order> data = orders[date];
+            data.RemoveAll(o => o.OrderNumber == orderNumber);
+            File.Delete(path);
+            foreach (var order in data)
+            {
+                SaveOrder(date, order);
+            }
+            return true;
         }
 
         public void SaveOrder(DateTime date, Order order)

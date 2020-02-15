@@ -57,6 +57,14 @@ namespace FlooringMastery.Tests
             }
         }
 
+        [TestCase("01/01/2000", 1, true)]
+        [TestCase("01/01/2000", 2, false)]
+        public void OrderRemoveTest(DateTime date, int orderNumber, bool expectedResult)
+        {
+            var result = repository.RemoveOrder(date, orderNumber);
+            Assert.AreEqual(result.Success, expectedResult);
+        }
+
         private Models.Order CopyOrder(Models.Order parent)
         {
             return new Models.Order()
