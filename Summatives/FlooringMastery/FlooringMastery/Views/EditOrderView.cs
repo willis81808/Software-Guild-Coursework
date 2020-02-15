@@ -30,7 +30,6 @@ namespace FlooringMastery.Views
             OrderLookupResponse result = repository.LookupOrder(targetDate, orderNumber);
             if (!result.Success)
             {
-
                 Console.WriteLine(result.Message);
                 Console.Write("Press any key to return to main menu...");
                 Console.ReadKey();
