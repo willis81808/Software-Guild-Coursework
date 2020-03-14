@@ -97,8 +97,8 @@ function Purchase() {
 			if (change[3] > 0)
 				text += `${change[3]} Pennie${change[3] > 1 ? "s" : ""} `
 			text += "}"
-			messageText.text("{ }")
-			messageText.attr('style', '')
+			messageText.text("{ Thank You!!! }")
+			messageText.attr('style', 'color: green !important')
 			changeText.text(text)
 			UpdateQuantities()
 		},
@@ -119,5 +119,7 @@ function ReturnChange() {
 	total += change[3] * 0.01
 	AddMoney(total)
 	changeText.text("{ }")
+	messageText.text("{ }")
+	messageText.attr('style', '');
 	change = [0, 0, 0, 0]
 }
