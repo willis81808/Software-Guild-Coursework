@@ -1,3 +1,7 @@
+# Custom
+*.bsdesign
+*.pdf
+
 # Java Defaults - https://github.com/github/gitignore/blob/master/Java.gitignore
 # Compiled class file
 *.class
