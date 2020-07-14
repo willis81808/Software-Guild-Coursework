@@ -1,0 +1,20 @@
+﻿@model EntityFrameworkIntro.Models.AddMovieViewModel
+
+@{
+    ViewBag.Title = "AddMovie";
+}
+
+<h1>AddMovie</h1>
+@using (Html.BeginForm("AddMovie", "Home", FormMethod.Post))
+{
+    <h2>Title</h2>
+    @Html.TextAreaFor(t => Model.Title)
+
+    <h2>Genre</h2>
+    @Html.DropDownListFor(g => Model.GenreId, Model.Genres)
+
+    <h2>Rating</h2>
+    @Html.DropDownListFor(r => Model.RatingsId, Model.Ratings)
+
+    <input type="submit" value="Submit"/>
+}
