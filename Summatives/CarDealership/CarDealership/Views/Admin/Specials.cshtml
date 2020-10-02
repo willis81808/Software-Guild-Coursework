@@ -1,0 +1,58 @@
+﻿@model CarDealership.Models.SpecialsViewModel
+
+@{
+    ViewBag.Title = "Admin - Specials";
+}
+
+<p class="text-warning">@ViewBag.Message</p>
+
+<div class="container">
+    <h2>New Special</h2>
+
+    @using (Html.BeginForm("Specials", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", style = "min-width:100%" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<div class="container">
+    <h2>Specials</h2>
+
+    @foreach (var special in ViewBag.Specials)
+    {
+        <div class="card card-body d-flex" style="margin-top:10px">
+            <div class="d-flex">
+                <img src="~/Content/img/dollar_sign.png" style="height:96px" />
+                <div style="margin-left:15px">
+                    <h4>@special.Title</h4>
+                    <p>@special.Description</p>
+                </div>
+            </div>
+            @Html.ActionLink("Edit", "EditSpecial", new { id = special.SpecialId }, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

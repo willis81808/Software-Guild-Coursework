@@ -1,0 +1,96 @@
+﻿@model CarDealership.Models.VehicleSearchViewModel
+
+@{
+    ViewBag.Title = "Vehicles";
+}
+
+<style>
+    .my-center {
+        margin: 5px;
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
+    .featured-star {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        margin: 15px;
+    }
+</style>
+
+<p class="text-warning">@ViewBag.Message</p>
+
+<h2>Admin - Vehicles</h2>
+
+<div class="container">
+    <div class="card card-body">
+        <h6 style="padding-left:15px">Quick Search</h6>
+        @using (Html.BeginForm("Vehicles", "Admin", FormMethod.Post))
+        {
+            <div class="container" style="padding:10px">
+                <div class="row">
+                    <div class="col-sm">
+                        @Html.TextBoxFor(m => m.Query, new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm d-flex">
+                        <span class="my-center">Price</span>
+                        @Html.DropDownListFor(m => m.PriceMin, Model.Prices, "No Min", new { @class = "form-control my-center" })
+                        @Html.DropDownListFor(m => m.PriceMax, Model.Prices, "No Max", new { @class = "form-control my-center" })
+                    </div>
+                    <div class="col-sm d-flex">
+                        <span class="my-center">Year</span>
+                        @Html.DropDownListFor(m => m.YearMin, Model.Years, "No Min", new { @class = "form-control my-center" })
+                        @Html.DropDownListFor(m => m.YearMax, Model.Years, "No Max", new { @class = "form-control my-center" })
+                    </div>
+                </div>
+                <div class="row" style="margin-top:20px">
+                    <div class="col-sm"></div>
+                    <div class="col-sm"><input type="submit" class="btn btn-primary" value="Search" style="width:100%" /></div>
+                    <div class="col-sm"></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+<h2>Search Results</h2>
+
+<hr />
+
+<div class="container">
+    @Html.ActionLink("[ Add Vehicle ]", "AddVehicle", "Admin", null, new { @class = "text-success" })
+    @foreach (var car in Model.Results)
+    {
+        <div class="card card-body" style="margin-top:10px">
+            @if (car.Featured)
+            {
+                <img src="~/Content/img/star.png" title="featured" alt="featured" class="featured-star" />
+            }
+            <h3>@car.Year @car.Make @car.Model</h3>
+            <div class="d-flex">
+                <img src="~/Content/img/large_car_black.png" style="height:96px" />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">Body Style: @car.Body</div>
+                        <div class="col-sm">Interior: @car.InteriorColor @car.Interior</div>
+                        <div class="col-sm">Sale Price: $@car.Price</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Transmission: @car.Transmission</div>
+                        <div class="col-sm">Mileage: @(car.Mileage == 0 ? "NEW" : $"{car.Mileage} miles")</div>
+                        <div class="col-sm">MSRP: $@car.MSRP</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">Color: @car.CarColor</div>
+                        <div class="col-sm">VIN: @car.VIN</div>
+                        <div class="col-sm"></div>
+                    </div>
+                </div>
+            </div>
+            @Html.ActionLink("Edit", "EditVehicle", new { id = car.Id }, new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

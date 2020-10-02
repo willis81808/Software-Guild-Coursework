@@ -1,0 +1,76 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav" style="background-color: rgb(23, 23, 23) !important">
+        <div class="container">
+            <div class="navbar-brand" href="#page-top">
+                <a href="/"><img src="~/Content/img/large_car.png" style="width:30px" /></a>
+            </div>
+            <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" data-toogle="collapse" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link js-scroll-trigger" })</li>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Inventory</a>
+                        <div class="dropdown-menu" role="menu">
+                            @Html.ActionLink("New", "New", "Inventory", null, new { @class = "dropdown-item", role = "presentation" })
+                            @Html.ActionLink("Used", "Used", "Inventory", null, new { @class = "dropdown-item", role = "presentation" })
+                        </div>
+                    </li>
+                    <li class="nav-item" role="presentation">@Html.ActionLink("Specials", "Specials", "Home", null, new { @class = "nav-link js-scroll-trigger" })</li>
+                    <li class="nav-item" role="presentation">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link js-scroll-trigger" })</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Admin</a>
+                            <div class="dropdown-menu" role="menu">
+                                @Html.ActionLink("Vehicles", "Vehicles", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                                @Html.ActionLink("Users", "Users", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                                @Html.ActionLink("Specials", "Specials", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                                @Html.ActionLink("Reports", "Index", "Reports", null, new { @class = "dropdown-item", role = "presentation" })
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Add</a>
+                            <div class="dropdown-menu" role="menu">
+                                @Html.ActionLink("Vehicle", "AddVehicle", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                                @Html.ActionLink("User", "AddUser", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                                @Html.ActionLink("Make", "Makes", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                                @Html.ActionLink("Model", "Models", "Admin", null, new { @class = "dropdown-item", role = "presentation" })
+                            </div>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Sales"))
+                    {
+                        <li class="nav-item" role="presentation">@Html.ActionLink("Sales", "Index", "Sales", null, new { @class = "nav-link js-scroll-trigger" })</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content" style="margin-top:50px">
+        @RenderBody()
+        <hr />
+        <footer style="text-align:center">
+            <p>Copyright &copy; @DateTime.Now.Year Erick Reid Willis - All rights reserved</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,131 @@
+USE GuildCars
+GO
+
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Featured')
+BEGIN
+	DROP TABLE Featured
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Specials')
+BEGIN
+	DROP TABLE Specials
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Cars')
+BEGIN
+	DROP TABLE Cars
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'MakeModels')
+BEGIN
+	DROP TABLE MakeModels
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Makes')
+BEGIN
+	DROP TABLE Makes
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Colors')
+BEGIN
+	DROP TABLE Colors
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Transmissions')
+BEGIN
+	DROP TABLE Transmissions
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Interiors')
+BEGIN
+	DROP TABLE Interiors
+END
+GO
+IF EXISTS (
+	SELECT *
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE TABLE_NAME = 'Bodies')
+BEGIN
+	DROP TABLE Bodies
+END
+GO
+
+CREATE TABLE Bodies (
+	BodyId int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Type] nvarchar(20) NOT NULL
+)
+
+CREATE TABLE Interiors (
+	InteriorId int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Type] nvarchar(20) NOT NULL
+)
+
+CREATE TABLE Transmissions (
+	TransmissionId int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Type] nvarchar(20) NOT NULL
+)
+
+CREATE TABLE Colors (
+	ColorId int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Name] nvarchar(10) NOT NULL
+)
+
+CREATE TABLE Makes (
+	MakeId int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Name] nvarchar(20) NOT NULL
+)
+
+CREATE TABLE MakeModels (
+	ModelId int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	MakeId int NULL FOREIGN KEY(MakeId) REFERENCES Makes(MakeId),
+	[Name] nvarchar(20) NOT NULL
+)
+
+CREATE TABLE Cars (
+	Id int IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+	[Year] int NOT NULL,
+	Mileage int NOT NULL,
+
+	ModelId int NOT NULL FOREIGN KEY(ModelId) REFERENCES MakeModels(ModelId),
+	BodyId int NOT NULL FOREIGN KEY(BodyId) REFERENCES Bodies(BodyId),
+	TransmissionId int NOT NULL FOREIGN KEY(TransmissionId) REFERENCES Transmissions(TransmissionId),
+	InteriorId int NOT NULL FOREIGN KEY(InteriorId) REFERENCES Interiors(InteriorId),
+	CarColorId int NOT NULL FOREIGN KEY(CarColorId) REFERENCES Colors(ColorId),
+	InteriorColorId int NOT NULL FOREIGN KEY(InteriorColorId) REFERENCES Colors(ColorId),
+
+	VIN char(17) NOT NULL,
+	Price decimal NOT NULL,
+	MSRP decimal NOT NULL,
+	Featured bit NOT NULL,
+	[Description] nvarchar(max) NULL
+)
+
+CREATE TABLE Specials (
+	SpecialsId int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Title nvarchar(max) NOT NULL,
+	[Description] nvarchar(max) NOT NULL
+)

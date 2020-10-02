@@ -1,0 +1,62 @@
+﻿@model CarDealership.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+<p class="text-warning">@ViewBag.Notice</p>
+
+<h2>Contact Us</h2>
+
+<div class="container d-flex">
+    <div class="row">
+        <div class="col-sm" style="min-width: 400px">
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+            {
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-sm">
+            <!-- Google Maps embedded iFrame -->
+            <iframe width="500" height="350" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJx5lURIdCwokRdOsSlc9CRu4&key=AIzaSyDy2E6XFy3UTsFbcuT-bexKkh7rC--oLhY" allowfullscreen></iframe>
+
+            <address>
+                4-15 Beach 128th St<br />
+                Queens, NY 11694<br />
+            </address>
+            <address>
+                Sales: 111-111-1111<br />
+                Service: 111-111-1112
+            </address>
+        </div>
+    </div>
+</div>

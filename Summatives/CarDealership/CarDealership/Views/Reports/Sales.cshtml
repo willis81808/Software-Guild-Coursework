@@ -1,0 +1,63 @@
+﻿@model CarDealership.Models.SalesReportViewModel
+
+@{
+    ViewBag.Title = "Admin - Sales Report";
+}
+
+<h2>Sales Report</h2>
+<div class="container">
+    <div class="card card-body">
+        <h6 style="padding-left:15px">Filters</h6>
+        @using (Html.BeginForm("Sales", "Reports", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+            <div class="container" style="padding:10px">
+                <div class="row">
+                    <div class="col-sm">
+                        <span>User</span>
+                        @Html.DropDownListFor(m => m.User, Model.Users, "- All -", new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm">
+                        <span>From Date</span>
+                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", type = "date" })
+                    </div>
+                    <div class="col-sm">
+                        <span>To Date</span>
+                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", type = "date" })
+                    </div>
+                </div>
+                <div class="row" style="margin-top:20px">
+                    <div class="col-sm"></div>
+                    <div class="col-sm"><input type="submit" class="btn btn-primary" value="Search" style="width:100%" /></div>
+                    <div class="col-sm"></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+<h2>Search Results</h2>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Total Sales</th>
+                <th scope="col">Total Vehicles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stat in Model.Statistics)
+            {
+                <tr>
+                    <td>@stat.Name</td>
+                    <td>@stat.TotalSales</td>
+                    <td>@stat.TotalVehicles</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

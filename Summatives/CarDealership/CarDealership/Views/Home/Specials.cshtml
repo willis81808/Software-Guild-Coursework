@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CarDealership.Models.Special>
+
+@{
+    ViewBag.Title = "Specials";
+}
+
+<div class="container">
+    <h2>Specials</h2>
+
+    @foreach (var special in Model)
+    {
+        <div class="card card-body d-flex" style="margin-top:10px">
+            <div class="d-flex">
+                <img src="~/Content/img/dollar_sign.png" style="height:96px" />
+                <div style="margin-left:15px">
+                    <h4>@special.Title</h4>
+                    <p>@special.Description</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

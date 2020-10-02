@@ -1,0 +1,170 @@
+﻿@model CarDealership.Models.PurchaseViewModel
+
+@{
+    ViewBag.Title = "Purchase Vehicle";
+}
+
+<style>
+    .featured-star {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 50px;
+        margin: 15px;
+    }
+    .full-width {
+        min-width: 100%;
+    }
+    .full-width input {
+        max-width: 100%;
+    }
+    .part-width {
+        margin-right: auto;
+        margin-left: auto;
+        width: 60%;
+    }
+    .part-width div {
+        min-width: 100%;
+    }
+</style>
+
+<h2>Vehicle Details</h2>
+
+<div class="container">
+    <div class="card card-body" style="margin-top:10px">
+        @if (ViewBag.Car.Featured)
+        {
+            <img src="~/Content/img/star.png" title="featured" alt="featured" class="featured-star" />
+        }
+        <h3>@ViewBag.Car.Year @ViewBag.Car.Make @ViewBag.Car.Model</h3>
+        <div class="d-flex">
+            <img src="~/Content/img/large_car_black.png" style="height:96px" />
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">Body Style: @ViewBag.Car.Body</div>
+                    <div class="col-sm">Interior: @ViewBag.Car.InteriorColor @ViewBag.Car.Interior</div>
+                    <div class="col-sm">Sale Price: $@ViewBag.Car.Price</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">Transmission: @ViewBag.Car.Transmission</div>
+                    <div class="col-sm">Mileage: @(ViewBag.Car.Mileage == 0 ? "NEW" : $"{ViewBag.Car.Mileage} miles")</div>
+                    <div class="col-sm">MSRP: $@ViewBag.Car.MSRP</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">Color: @ViewBag.Car.CarColor</div>
+                    <div class="col-sm">VIN: @ViewBag.Car.VIN</div>
+                    <div class="col-sm"></div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="row">
+                <div class="col-sm" style="max-width:175px; text-align:right">Description:</div>
+                <div class="col-sm">@ViewBag.Car.Description</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container d-flex flex-column align-items-center">
+
+    @using (Html.BeginForm("Purchase", "Sales", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.CarId);
+
+        <div class="d-flex row">
+            <div class="form-group col-sm">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10 full-width">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-sm">
+                @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10 full-width">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group part-width">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="d-flex row">
+            <div class="form-group col-sm">
+                @Html.LabelFor(m => m.Street1, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10 full-width">
+                    @Html.TextBoxFor(m => m.Street1, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Street1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-sm">
+                @Html.LabelFor(m => m.Street2, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10 full-width">
+                    @Html.TextBoxFor(m => m.Street2, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Street2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group part-width">
+            @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group part-width">
+            @Html.LabelFor(m => m.State, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.State, Model.GetStates(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group part-width">
+            @Html.LabelFor(m => m.ZIP, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ZIP, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(m => m.ZIP, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="d-flex row">
+            <div class="form-group col-sm">
+                @Html.LabelFor(m => m.PurchasePrice, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10 full-width">
+                    @Html.TextBoxFor(m => m.PurchasePrice, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.PurchasePrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-sm">
+                @Html.LabelFor(m => m.PurchaseType, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10 full-width">
+                    @Html.DropDownListFor(m => m.PurchaseType, Model.GetPurchaseTypes(), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.PurchaseType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>

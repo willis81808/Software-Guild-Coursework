@@ -1,0 +1,146 @@
+﻿@model CarDealership.Models.AddCarViewModel
+
+@{
+    ViewBag.Title = "Admin - Add Vehicle";
+}
+
+<style>
+    .my-center {
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+</style>
+
+<h2>Add Vehicle</h2>
+
+@using (Html.BeginForm("AddVehicle", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Year, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Car.Year, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Make, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.Make, Model.Makes, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Model, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.Model, Model.Models, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Mileage, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Car.Mileage, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.VIN, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Car.VIN, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Transmission, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.Transmission, Model.Transmissions, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Body, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.Body, Model.Bodies, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.CarColor, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.CarColor, Model.Colors, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Interior, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.Interior, Model.Interiors, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.InteriorColor, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.Car.InteriorColor, Model.Colors, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Price, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Car.Price, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.MSRP, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Car.MSRP, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Car.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Car.Description, new { @class = "form-control", style = "min-width:100%" })
+        </div>
+    </div>
+
+    <div class="form-group d-flex align-middle">
+        @Html.LabelFor(m => m.Car.Featured, new { @class = "col-md-2 control-label my-center", style = "max-width:100px; padding-bottom:5px" })
+        @Html.CheckBoxFor(m => m.Car.Featured, new { @class = "form-control my-center", style = "width:25px" })
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add Vehicle" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<script>
+    window.onload = function () {
+        $("#Car_Make").change(updateModelList)
+        updateModelList()
+    }
+
+    function updateModelList() {
+        let make = $("#Car_Make option:selected").text()
+        $.getJSON(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMake/${make}?format=json`, function (data) {
+            if (data.Count > 0) {
+                $("#Car_Model option").remove()
+            }
+            for (let i = 0; i < data.Count; i++) {
+                var model = data.Results[i].Model_Name;
+                $("#Car_Model").append($("<option>")
+                    .val(model)
+                    .html(model)
+                )
+            }
+        })
+    }
+</script>
